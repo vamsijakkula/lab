@@ -1,0 +1,31 @@
+minikube start --memory 12288 --cpus=4
+
+kubectl exec -ti cassandra-0 -- nodetool status
+
+kubectl scale --replicas=2 statefulset/cassandra
+
+kubectl exec -it cassandra-0 cqlsh
+
+CREATE KEYSPACE test
+WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
+
+DESCRIBE keyspaces;
+
+
+CREATE TABLE emp(
+   emp_id int PRIMARY KEY,
+   emp_name text,
+   emp_city text,
+   emp_sal varint,
+   emp_phone varint
+   );
+
+
+ INSERT INTO emp (emp_id, emp_name, emp_city,
+   emp_phone, emp_sal) VALUES(1,'ram', 'Hyderabad', 12345678, 50000);
+
+ INSERT INTO emp (emp_id, emp_name, emp_city,
+   emp_phone, emp_sal) VALUES(2,'robin', 'Hyderabad', 87654321, 40000);
+
+ INSERT INTO emp (emp_id, emp_name, emp_city,
+   emp_phone, emp_sal) VALUES(3,'rahman', 'Chennai', 876554433, 45000);

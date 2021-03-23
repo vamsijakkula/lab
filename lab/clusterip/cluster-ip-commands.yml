@@ -1,0 +1,6 @@
+kubectl exec -it pod-name -- sh
+
+apk add --no-cache curl
+
+
+curl <cluster-ip.:80
